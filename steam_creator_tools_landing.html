@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Creator Tools - Unifica tu Workflow Creativo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -webkit-system-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: #00d4ff;
+        }
+
+        .cta-header {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .cta-header:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00d4ff, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .value-proposition {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 2rem auto;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-primary {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 20px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-decoration: none;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            padding: 18px 40px;
+            border: 2px solid white;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 20px 10px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-decoration: none;
+        }
+
+        .cta-secondary:hover {
+            background: white;
+            color: #1a1a2e;
+        }
+
+        /* Problem Section */
+        .problem {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .problem h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1a1a2e;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .problem-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .problem-card i {
+            font-size: 3rem;
+            color: #ff6b35;
+            margin-bottom: 1rem;
+        }
+
+        .problem-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #1a1a2e;
+        }
+
+        .stat-highlight {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .stat-highlight h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Solution Section */
+        .solution {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 80px 0;
+        }
+
+        .solution h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1a1a2e;
+        }
+
+        .solution-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #1a1a2e;
+        }
+
+        /* Product Demo */
+        .product-demo {
+            background: #1a1a2e;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .demo-video {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 60px;
+            border-radius: 15px;
+            margin: 2rem auto;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Social Proof */
+        .social-proof {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .social-proof h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1a1a2e;
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            font-size: 4rem;
+            color: #00d4ff;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+        }
+
+        .testimonial-author {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #1a1a2e;
+        }
+
+        .testimonial-role {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1a1a2e;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            background: white;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            background: #f8f9fa;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #666;
+            display: none;
+        }
+
+        /* CTA Final */
+        .cta-final {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-final h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-final p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #00d4ff;
+        }
+
+        /* Button specific font fixes */
+        button, .cta-primary, .cta-secondary, .cta-header {
+            font-family: -webkit-system-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif !important;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* Ensure button text is always visible */
+        .cta-primary, .cta-header {
+            color: #ffffff !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Fix for WebKit browsers */
+        @supports (-webkit-appearance: none) {
+            .cta-primary, .cta-header, .cta-secondary {
+                -webkit-appearance: none;
+                -webkit-font-smoothing: antialiased;
+            }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease-out;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #ff6b35;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h2 {
+            color: #1a1a2e;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-header .emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .survey-form {
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s;
+            font-family: inherit;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .thank-you-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .thank-you-message h3 {
+            color: #00d4ff;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .cta-primary, .cta-secondary {
+                display: block;
+                margin: 10px auto;
+                max-width: 250px;
+            }
+
+            .problem-grid,
+            .solution-features,
+            .testimonials {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 2rem;
+                margin: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Interactive Elements */
+        .interactive-demo {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .workflow-step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+            transition: transform 0.3s;
+        }
+
+        .workflow-step:hover {
+            transform: scale(1.05);
+        }
+
+        .workflow-arrow {
+            color: #00d4ff;
+            font-size: 1.5rem;
+        }
+
+        /* Trust Indicators */
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .trust-item i {
+            color: #00d4ff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Modal -->
+    <div class="modal-overlay" id="feedbackModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('close_button')">&times;</button>
+            
+            <div class="modal-header">
+                <span class="emoji">🚀</span>
+                <h2>¡Gracias por tu interés!</h2>
+                <p>Steam Creator Tools está actualmente en desarrollo. Tu feedback nos ayuda a crear la mejor experiencia posible.</p>
+            </div>
+
+            <form class="survey-form" id="surveyForm">
+                <div class="form-group">
+                    <label for="interest">¿Qué te llamó más la atención de Steam Creator Tools?</label>
+                    <select id="interest" name="interest" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="categorias">Las nuevas categorías profesionales organizadas</option>
+                        <option value="integracion">La integración entre gaming y herramientas profesionales</option>
+                        <option value="crossplatform">Acceso cross-platform desde cualquier dispositivo</option>
+                        <option value="precio">Los precios competitivos vs. licencias separadas</option>
+                        <option value="descubrimiento">Facilidad para descubrir nuevas herramientas</option>
+                        <option value="ecosistema">El ecosistema unificado Steam</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="workflow">¿Cuál es tu mayor dolor actual con herramientas profesionales?</label>
+                    <select id="workflow" name="workflow" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="switching">Perder tiempo cambiando entre aplicaciones</option>
+                        <option value="costo">Múltiples suscripciones muy costosas</option>
+                        <option value="descubrimiento">Dificultad para encontrar las herramientas correctas</option>
+                        <option value="sincronizacion">Problemas de sincronización entre dispositivos</option>
+                        <option value="aprendizaje">Curva de aprendizaje de múltiples herramientas</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="feedback">¿Algo específico que te gustaría ver en Steam Creator Tools? (Opcional)</label>
+                    <textarea id="feedback" name="feedback" placeholder="Comparte tus ideas o sugerencias..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Enviar Feedback
+                </button>
+            </form>
+
+            <div class="thank-you-message" id="thankYouMessage">
+                <span class="emoji">✨</span>
+                <h3>¡Feedback enviado exitosamente!</h3>
+                <p>Te notificaremos cuando Steam Creator Tools esté disponible. ¡Mantente atento!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <i class="fa-brands fa-steam"></i>
+                Steam Creator Tools
+            </div>
+            <ul class="nav-links">
+                <li><a href="#producto">Producto</a></li>
+                <li><a href="#problema">Problema</a></li>
+                <li><a href="#validacion">Validación</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+            <button class="cta-header" onclick="openModal('header_cta')">
+                Comenzar Gratis
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in-up">
+                <h1>Steam Creator Tools</h1>
+                <p class="subtitle">Descubre y accede a herramientas profesionales de desarrollo, diseño y modelado 3D directamente desde Steam. Una sección dedicada que transforma tu plataforma de gaming en tu hub creativo profesional.</p>
+                
+                <div class="value-proposition">
+                    <h3>🎯 Categorías Profesionales en Steam</h3>
+                    <p><strong>Development Tools:</strong> VS Code, Git, IDEs especializados</p>
+                    <p><strong>Design Software:</strong> Figma, Adobe Creative Suite, herramientas de UI/UX</p>
+                    <p><strong>CAD & Engineering:</strong> SolidWorks, AutoCAD, Blender para modelado 3D</p>
+                    <p><strong>Productivity Tools:</strong> Suites integradas y herramientas de gestión de proyectos</p>
+                </div>
+
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <i class="fa-brands fa-steam"></i>
+                        <span>Integrado con Steam</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-download"></i>
+                        <span>Instalación un-click</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-tags"></i>
+                        <span>Precios competitivos</span>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h3>Navegación Intuitiva</h3>
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <i class="fas fa-home"></i>
+                            <p>Steam Store</p>
+                        </div>
+                        <i class="fas fa-arrow-right workflow-arrow"></i>
+                        <div class="workflow-step">
+                            <i class="fas fa-tools"></i>
+                            <p>Professional Tools</p>
+                        </div>
+                        <i class="fas fa-arrow-right workflow-arrow"></i>
+                        <div class="workflow-step">
+                            <i class="fas fa-code"></i>
+                            <p>Development Tools</p>
+                        </div>
+                        <i class="fas fa-arrow-right workflow-arrow"></i>
+                        <div class="workflow-step">
+                            <i class="fas fa-download"></i>
+                            <p>VS Code / Blender</p>
+                        </div>
+                    </div>
+                    <p>Encuentra herramientas profesionales tan fácil como encontrar juegos</p>
+                </div>
+
+                <button class="cta-primary" onclick="openModal('hero_primary')">
+                    <i class="fas fa-search"></i>
+                    Explorar Categorías Profesionales
+                </button>
+                <button class="cta-secondary" onclick="openModal('hero_secondary')">
+                    Ver Catálogo Completo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem" id="problema">
+        <div class="container">
+            <h2>El problema: Software profesional invisible en Steam</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #666;">
+                Los desarrolladores y diseñadores no saben que Steam tiene herramientas profesionales
+            </p>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <i class="fas fa-eye-slash"></i>
+                    <h3>Descubrimiento Accidental</h3>
+                    <p><strong>Problema:</strong> "ShareX yo la conocí fue a través de Steam, una vez que está como chismoseando" - Andrés, 5 años después</p>
+                    <p><strong>Impacto:</strong> Años perdidos sin optimizar el workflow por desconocimiento</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-search"></i>
+                    <h3>Categorización Inadecuada</h3>
+                    <p><strong>Problema:</strong> Todo el software profesional está mezclado en una categoría genérica "Software"</p>
+                    <p><strong>Resultado:</strong> 0% de usuarios encontraron herramientas de modelado 3D en la interfaz actual</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>Percepción Gaming-Only</h3>
+                    <p><strong>Barrera:</strong> "Steam es solo para gamers hardcore" - Percepción generalizada</p>
+                    <p><strong>Oportunidad perdida:</strong> 82.9% de usuarios con cuenta Steam no explora software profesional</p>
+                </div>
+            </div>
+
+            <div class="stat-highlight">
+                <h3>100% vs 0%</h3>
+                <p>Tasa de éxito: Categorías específicas vs interfaz actual en encontrar software profesional</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution" id="producto">
+        <div class="container">
+            <h2>Steam Creator Tools: Categorías profesionales visibles</h2>
+            
+            <div class="solution-features">
+                <div class="feature-card">
+                    <i class="fas fa-th-large"></i>
+                    <h3>Categorías Específicas</h3>
+                    <p><strong>Development Tools:</strong> VS Code, Git, IDEs, frameworks especializados</p>
+                    <p><strong>Beneficio:</strong> Encuentra herramientas de desarrollo en segundos, no por casualidad</p>
+                    <button class="cta-primary" style="font-size: 0.9rem; padding: 10px 20px; margin-top: 1rem;" onclick="openModal('development_tools_card')">Explorar Development Tools</button>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-palette"></i>
+                    <h3>Design Software</h3>
+                    <p><strong>Herramientas:</strong> Figma, Adobe Creative Suite, Sketch, herramientas UI/UX</p>
+                    <p><strong>Beneficio:</strong> Todas las herramientas de diseño organizadas y accesibles</p>
+                    <button class="cta-primary" style="font-size: 0.9rem; padding: 10px 20px; margin-top: 1rem;" onclick="openModal('design_tools_card')">Ver Design Tools</button>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-cube"></i>
+                    <h3>CAD & Engineering</h3>
+                    <p><strong>Software especializado:</strong> SolidWorks, AutoCAD, Blender, Fusion 360</p>
+                    <p><strong>Beneficio:</strong> Herramientas de modelado 3D y CAD al alcance de un clic</p>
+                    <button class="cta-primary" style="font-size: 0.9rem; padding: 10px 20px; margin-top: 1rem;" onclick="openModal('cad_tools_card')">Descubrir CAD Tools</button>
+                </div>
+            </div>
+
+            <div class="stat-highlight">
+                <h3>Professional Tools</h3>
+                <p>Nueva sección prominente en Steam que hace visible todo el software creativo y de desarrollo</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Demo -->
+    <section class="product-demo">
+        <div class="container">
+            <h2>Así funciona la nueva organización</h2>
+            
+            <div class="demo-video">
+                <h3>Navegación Intuitiva</h3>
+                <p><strong>Antes:</strong> Steam → Software → (búsqueda confusa entre miles de programas)</p>
+                <p><strong>Después:</strong> Steam → Professional Tools → Development Tools → VS Code ✓</p>
+                <p><strong>Resultado:</strong> De 30 segundos navegando a encontrar en 2 clics</p>
+                
+                <div class="interactive-demo" style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 10px; margin: 2rem 0;">
+                    <h4>Estructura de Categorías</h4>
+                    <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+                        <p><strong>Professional Tools</strong></p>
+                        <p style="margin-left: 20px;">├── 💻 Development Tools</p>
+                        <p style="margin-left: 20px;">├── 🎨 Design Software</p>
+                        <p style="margin-left: 20px;">├── 🔧 CAD & Engineering</p>
+                        <p style="margin-left: 20px;">├── 📊 Data & Analytics</p>
+                        <p style="margin-left: 20px;">├── 🎬 Video & Audio Production</p>
+                        <p style="margin-left: 20px;">└── ⚡ Productivity Tools</p>
+                    </div>
+                </div>
+                
+                <button class="cta-primary" style="font-size: 1.1rem; padding: 14px 28px; margin: 1.5rem auto; display: inline-flex; align-items: center; gap: 8px;" onclick="openModal('demo_navigation')">
+                    <i class="fas fa-play"></i>
+                    Ver Demo de Navegación
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof" id="validacion">
+        <div class="container">
+            <h2>Validado por desarrolladores reales</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">encontraron herramientas profesionales con las nuevas categorías</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0%</div>
+                    <div class="stat-label">logró encontrarlas en la interfaz actual de Steam</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10s</div>
+                    <div class="stat-label">promedio para encontrar software específico</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2.4</div>
+                    <div class="stat-label">clics promedio vs 8 en interfaz actual</div>
+                </div>
+            </div>
+
+            <h3 style="text-align: center; margin: 3rem 0 2rem;">Lo que dicen los desarrolladores</h3>
+            <div class="testimonials">
+                <div class="testimonial">
+                    <p>"Yo no sabía que sí tenía eso [software no-gaming]. ShareX yo la conocí fue a través de Steam, una vez que está como chismoseando"</p>
+                    <div class="testimonial-author">Andrés C.</div>
+                    <div class="testimonial-role">Desarrollador Full-Stack • Usuario Steam 5+ años</div>
+                </div>
+                <div class="testimonial">
+                    <p>"Steam... no sé si cuenta como suite de herramientas. No tiene como mucho catálogo actualmente [visible]"</p>
+                    <div class="testimonial-author">Jorge A.</div>
+                    <div class="testimonial-role">Ingeniero de Software • Gamer activo</div>
+                </div>
+                <div class="testimonial">
+                    <p>"Sí la he escuchado [Steam], pero que la use no la verdad. No sabía que tenía software profesional"</p>
+                    <div class="testimonial-author">Felipe M.</div>
+                    <div class="testimonial-role">Estudiante Ingeniería • Desarrollador IoT</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 2rem 0;">
+                <p><strong>✅ Validado con experimento Split Testing (A/B)</strong></p>
+                <p><strong>✅ Confirmado en 5 entrevistas cualitativas</strong></p>
+                <p><strong>✅ Respaldado por encuesta con 35 usuarios LATAM</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2>Preguntas frecuentes</h2>            
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    ¿Steam Creator Tools es una nueva aplicación?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    No, Steam Creator Tools es una reorganización de la interfaz de Steam. Agrega categorías específicas (Development Tools, Design Software, CAD & Engineering) para hacer visible el software profesional que ya existe en Steam.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    ¿Qué herramientas estarán disponibles?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    Todas las herramientas profesionales que ya están en Steam, pero organizadas por categorías: VS Code, Blender, OBS Studio, GIMP, y cientos de herramientas de desarrollo y diseño. Plus nuevas incorporaciones curadas específicamente.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    ¿Necesito pagar extra por acceder a estas categorías?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    No, las categorías son gratuitas. Solo pagas por el software que elijas descargar, igual que con los juegos. Muchas herramientas profesionales en Steam son gratuitas o de código abierto.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    ¿Esto reemplaza mi workflow actual?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    Steam Creator Tools complementa tu workflow. Puedes seguir usando tus herramientas actuales mientras descubres nuevas opciones de manera más eficiente. La idea es hacer visible lo que antes estaba oculto.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta-final" id="cta">
+        <div class="container">
+            <h2>Descubre herramientas profesionales en Steam</h2>
+            <p><strong>Únete a la beta de Steam Creator Tools</strong><br>
+            Sé de los primeros en acceder a las categorías profesionales organizadas y descubre software que no sabías que existía en Steam</p>
+            
+            <button class="cta-primary" style="font-size: 1.4rem; padding: 20px 50px;" onclick="openModal('final_cta')">
+                <i class="fa-brands fa-steam"></i>
+                Acceder a Beta de Categorías
+            </button>
+            
+            <div style="margin-top: 2rem; opacity: 0.8;">
+                <p>✅ Acceso anticipado a Professional Tools</p>
+                <p>✅ Navegación optimizada por categorías</p>
+                <p>✅ Descubrimiento curado de herramientas</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem;">
+                <div class="logo">
+                    <i class="fa-brands fa-steam"></i>
+                    Steam Creator Tools
+                </div>
+                <div style="text-align: right;">
+                    <p>&copy; 2025 Steam Creator Tools</p>
+                    <p>Investigación y desarrollo: Proceso de Innovación</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+
+        // Google Analytics Event Tracking Functions
+        function trackCTAClick(buttonName, location) {
+            gtag('event', 'cta_click', {
+                'event_category': 'CTA Interaction',
+                'event_label': buttonName,
+                'button_location': location,
+                'custom_map': {
+                    'custom_parameter_1': 'steam_creator_tools'
+                }
+            });
+        }
+
+        function trackModalOpen(trigger) {
+            gtag('event', 'modal_open', {
+                'event_category': 'Modal Interaction',
+                'event_label': 'feedback_modal_opened',
+                'trigger_source': trigger
+            });
+        }
+
+        function trackModalClose(method) {
+            gtag('event', 'modal_close', {
+                'event_category': 'Modal Interaction',
+                'event_label': 'feedback_modal_closed',
+                'close_method': method
+            });
+        }
+
+        function trackSurveyResponse(questionType, response) {
+            gtag('event', 'survey_response', {
+                'event_category': 'Survey Interaction',
+                'event_label': questionType,
+                'selected_option': response
+            });
+        }
+
+        function trackSurveySubmission(interestValue, workflowValue, hasFeedback) {
+            gtag('event', 'survey_submit', {
+                'event_category': 'Survey Completion',
+                'event_label': 'feedback_survey_completed',
+                'primary_interest': interestValue,
+                'main_pain_point': workflowValue,
+                'provided_additional_feedback': hasFeedback ? 'yes' : 'no'
+            });
+        }
+
+        function trackFAQInteraction(question) {
+            gtag('event', 'faq_toggle', {
+                'event_category': 'Content Engagement',
+                'event_label': 'faq_question_toggled',
+                'question_topic': question
+            });
+        }
+
+        function trackSectionView(sectionName) {
+            gtag('event', 'section_view', {
+                'event_category': 'Page Engagement',
+                'event_label': 'section_viewed',
+                'section_name': sectionName
+            });
+        }
+
+        // Modal Functions
+        function openModal(triggerSource = 'unknown') {
+            trackModalOpen(triggerSource);
+            trackCTAClick('modal_trigger', triggerSource);
+            document.getElementById('feedbackModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(method = 'unknown') {
+            trackModalClose(method);
+            document.getElementById('feedbackModal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('feedbackModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal('click_outside');
+            }
+        });
+
+        // Handle form submission with analytics
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values for analytics
+            const interestValue = document.getElementById('interest').value;
+            const workflowValue = document.getElementById('workflow').value;
+            const feedbackValue = document.getElementById('feedback').value;
+            const hasFeedback = feedbackValue.trim().length > 0;
+            
+            // Track survey submission
+            trackSurveySubmission(interestValue, workflowValue, hasFeedback);
+            
+            // Hide form and show thank you message
+            document.querySelector('.survey-form').style.display = 'none';
+            document.getElementById('thankYouMessage').style.display = 'block';
+            
+            // Close modal after 3 seconds
+            setTimeout(() => {
+                closeModal('auto_close_after_submit');
+                // Reset form for next use
+                setTimeout(() => {
+                    document.querySelector('.survey-form').style.display = 'block';
+                    document.getElementById('thankYouMessage').style.display = 'none';
+                    document.getElementById('surveyForm').reset();
+                }, 500);
+            }, 3000);
+        });
+
+        // Track dropdown selections
+        document.getElementById('interest').addEventListener('change', function(e) {
+            if (e.target.value) {
+                trackSurveyResponse('primary_interest', e.target.value);
+            }
+        });
+
+        document.getElementById('workflow').addEventListener('change', function(e) {
+            if (e.target.value) {
+                trackSurveyResponse('main_pain_point', e.target.value);
+            }
+        });
+
+        // Track FAQ interactions
+        function toggleFAQ(element) {
+            const questionText = element.textContent.trim();
+            trackFAQInteraction(questionText);
+            
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                answer.style.display = 'block';
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Smooth scrolling to CTA
+        function scrollToCTA() {
+            document.getElementById('cta').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        // Add FAQ interaction tracking
+        function toggleFAQ(element) {
+            const questionText = element.textContent.trim().replace(/\s+/g, ' ');
+            trackFAQInteraction(questionText);
+            
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                answer.style.display = 'block';
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+        }
+
+        // Track page load
+        gtag('event', 'page_view', {
+            'event_category': 'Page Engagement',
+            'event_label': 'steam_creator_tools_landing',
+            'page_title': 'Steam Creator Tools - Landing Page'
+        });
+
+        // Track time on page
+        let timeOnPage = 0;
+        setInterval(() => {
+            timeOnPage += 10;
+            if (timeOnPage % 30 === 0) { // Every 30 seconds
+                gtag('event', 'time_on_page', {
+                    'event_category': 'Page Engagement',
+                    'event_label': 'time_milestone',
+                    'time_seconds': timeOnPage
+                });
+            }
+        }, 10000);
+
+        // Track scroll depth
+        let maxScrollDepth = 0;
+        window.addEventListener('scroll', () => {
+            const scrollDepth = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+            if (scrollDepth > maxScrollDepth) {
+                maxScrollDepth = scrollDepth;
+                if (maxScrollDepth % 25 === 0 && maxScrollDepth > 0) { // 25%, 50%, 75%, 100%
+                    gtag('event', 'scroll_depth', {
+                        'event_category': 'Page Engagement',
+                        'event_label': 'scroll_milestone',
+                        'scroll_percentage': maxScrollDepth
+                    });
+                }
+            }
+        });
+
+        // Intersection Observer for animations and section tracking
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                    // Track section views
+                    const sectionId = entry.target.id;
+                    if (sectionId) {
+                        trackSectionView(sectionId);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Add scroll effect to header
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('header');
+                if (window.scrollY > 100) {
+                    header.style.background = 'rgba(0, 0, 0, 0.95)';
+                } else {
+                    header.style.background = 'rgba(0, 0, 0, 0.9)';
+                }
+            });
+
+            // Interactive workflow demo
+            const workflowSteps = document.querySelectorAll('.workflow-step');
+            workflowSteps.forEach((step, index) => {
+                step.addEventListener('mouseenter', () => {
+                    step.style.background = 'rgba(0, 212, 255, 0.2)';
+                    step.style.transform = 'scale(1.05)';
+                });
+                
+                step.addEventListener('mouseleave', () => {
+                    step.style.background = 'rgba(255, 255, 255, 0.1)';
+                    step.style.transform = 'scale(1)';
+                });
+            });
+
+            // Add dynamic stats counter animation
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const finalValue = stat.textContent;
+                let currentValue = 0;
+                const increment = finalValue.includes('%') ? 1 : 
+                                finalValue.includes('s') ? 1 : 
+                                finalValue.includes('/') ? 0.1 : 1;
+                
+                const timer = setInterval(() => {
+                    if (finalValue.includes('%')) {
+                        currentValue += increment;
+                        if (currentValue >= parseInt(finalValue)) {
+                            currentValue = parseInt(finalValue);
+                            clearInterval(timer);
+                        }
+                        stat.textContent = currentValue + '%';
+                    } else if (finalValue.includes('/')) {
+                        currentValue += increment;
+                        if (currentValue >= parseFloat(finalValue)) {
+                            currentValue = parseFloat(finalValue);
+                            clearInterval(timer);
+                        }
+                        stat.textContent = currentValue.toFixed(1) + '/5';
+                    }
+                }, 50);
+            });
+
+            // Add testimonial rotation
+            const testimonials = document.querySelectorAll('.testimonial');
+            let currentTestimonial = 0;
+            
+            setInterval(() => {
+                testimonials[currentTestimonial].style.transform = 'scale(1)';
+                testimonials[currentTestimonial].style.border = 'none';
+                
+                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+                
+                testimonials[currentTestimonial].style.transform = 'scale(1.05)';
+                testimonials[currentTestimonial].style.border = '2px solid #00d4ff';
+                testimonials[currentTestimonial].style.transition = 'all 0.3s ease';
+            }, 3000);
+
+            // Add mobile menu toggle
+            const createMobileMenu = () => {
+                if (window.innerWidth <= 768) {
+                    const nav = document.querySelector('nav');
+                    const navLinks = document.querySelector('.nav-links');
+                    
+                    if (!document.querySelector('.mobile-menu-toggle')) {
+                        const menuToggle = document.createElement('button');
+                        menuToggle.className = 'mobile-menu-toggle';
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                        menuToggle.style.cssText = `
+                            background: none;
+                            border: none;
+                            color: white;
+                            font-size: 1.5rem;
+                            cursor: pointer;
+                            display: block;
+                            font-family: inherit;
+                            -webkit-font-smoothing: antialiased;
+                        `;
+                        
+                        menuToggle.addEventListener('click', () => {
+                            if (navLinks.style.display === 'flex') {
+                                navLinks.style.display = 'none';
+                                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                            } else {
+                                navLinks.style.display = 'flex';
+                                navLinks.style.flexDirection = 'column';
+                                navLinks.style.position = 'absolute';
+                                navLinks.style.top = '100%';
+                                navLinks.style.left = '0';
+                                navLinks.style.right = '0';
+                                navLinks.style.background = 'rgba(0, 0, 0, 0.95)';
+                                navLinks.style.padding = '1rem';
+                                menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                            }
+                        });
+                        
+                        nav.appendChild(menuToggle);
+                    }
+                }
+            };
+
+            createMobileMenu();
+            window.addEventListener('resize', createMobileMenu);
+
+            // Add progress indicator
+            const createProgressIndicator = () => {
+                const progressBar = document.createElement('div');
+                progressBar.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 0%;
+                    height: 3px;
+                    background: linear-gradient(45deg, #00d4ff, #ff6b35);
+                    z-index: 9999;
+                    transition: width 0.3s ease;
+                `;
+                document.body.appendChild(progressBar);
+
+                window.addEventListener('scroll', () => {
+                    const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                    progressBar.style.width = scrollPercent + '%';
+                });
+            };
+
+            createProgressIndicator();
+
+            // Add floating action button
+            const createFloatingCTA = () => {
+                const floatingButton = document.createElement('button');
+                floatingButton.innerHTML = '<i class="fas fa-rocket"></i>';
+                floatingButton.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    background: linear-gradient(45deg, #ff6b35, #f7931e);
+                    border: none;
+                    color: white;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+                    z-index: 1000;
+                    transition: all 0.3s ease;
+                    opacity: 0;
+                    transform: translateY(100px);
+                    font-family: inherit;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                `;
+
+                floatingButton.addEventListener('click', scrollToCTA);
+                
+                floatingButton.addEventListener('mouseenter', () => {
+                    floatingButton.style.transform = 'translateY(0) scale(1.1)';
+                });
+                
+                floatingButton.addEventListener('mouseleave', () => {
+                    floatingButton.style.transform = 'translateY(0) scale(1)';
+                });
+
+                document.body.appendChild(floatingButton);
+
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 500) {
+                        floatingButton.style.opacity = '1';
+                        floatingButton.style.transform = 'translateY(0)';
+                    } else {
+                        floatingButton.style.opacity = '0';
+                        floatingButton.style.transform = 'translateY(100px)';
+                    }
+                });
+            };
+
+            // Add active navigation highlighting
+            const createActiveNavigation = () => {
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('.nav-links a');
+
+                const highlightNav = () => {
+                    let currentSection = '';
+                    
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop - 100;
+                        const sectionHeight = section.offsetHeight;
+                        
+                        if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                            currentSection = section.getAttribute('id');
+                        }
+                    });
+
+                    navLinks.forEach(link => {
+                        link.style.color = 'white';
+                        link.style.borderBottom = 'none';
+                        
+                        if (link.getAttribute('href') === `#${currentSection}`) {
+                            link.style.color = '#00d4ff';
+                            link.style.borderBottom = '2px solid #00d4ff';
+                        }
+                    });
+                };
+
+                window.addEventListener('scroll', highlightNav);
+                highlightNav(); // Call once on load
+            };
+
+            createActiveNavigation();
+            createFloatingCTA();
+        });
+    </script>
+</body>
+</html>
