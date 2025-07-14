@@ -449,6 +449,26 @@
             opacity: 0.9;
         }
 
+        .benefits-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.5rem;
+        }
+
+        .benefit-item i {
+            color: #28a745;
+            font-size: 1.2rem;
+        }
+
         /* Footer */
         footer {
             background: #1a1a2e;
@@ -907,7 +927,7 @@
                 <div class="problem-card">
                     <i class="fas fa-eye-slash"></i>
                     <h3>Descubrimiento Accidental</h3>
-                    <p><strong>Problema:</strong> "ShareX yo la conocí fue a través de Steam, una vez que está como chismoseando" - Andrés, 5 años después</p>
+                    <p><strong>Problema:</strong> "ShareX yo la conocí fue a través de Steam, una vez que estaba chismoseando" - Andrés, 5 años después</p>
                     <p><strong>Impacto:</strong> Años perdidos sin optimizar el workflow por desconocimiento</p>
                 </div>
                 <div class="problem-card">
@@ -924,10 +944,6 @@
                 </div>
             </div>
 
-            <div class="stat-highlight">
-                <h3>100% vs 0%</h3>
-                <p>Tasa de éxito: Categorías específicas vs interfaz actual en encontrar software profesional</p>
-            </div>
         </div>
     </section>
 
@@ -962,7 +978,7 @@
 
             <div class="stat-highlight">
                 <h3>Professional Tools</h3>
-                <p>Nueva sección prominente en Steam que hace visible todo el software creativo y de desarrollo</p>
+                <p>Nueva sección en Steam que hace visible todo el software creativo y de desarrollo disponible en la plataforma</p>
             </div>
         </div>
     </section>
@@ -1011,22 +1027,22 @@
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">0%</div>
-                    <div class="stat-label">logró encontrarlas en la interfaz actual de Steam</div>
+                    <div class="stat-label">lograron encontrar herramientas profesionales en la actual interfaz de Steam</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">10s</div>
-                    <div class="stat-label">promedio para encontrar software específico</div>
+                    <div class="stat-label">promedio para encontrar un software en específico</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">2.4</div>
-                    <div class="stat-label">clics promedio vs 8 en interfaz actual</div>
+                    <div class="stat-label">reducción de clics promedio vs 8 en la interfaz actual</div>
                 </div>
             </div>
 
             <h3 style="text-align: center; margin: 3rem 0 2rem;">Lo que dicen los desarrolladores</h3>
             <div class="testimonials">
                 <div class="testimonial">
-                    <p>"Yo no sabía que sí tenía eso [software no-gaming]. ShareX yo la conocí fue a través de Steam, una vez que está como chismoseando"</p>
+                    <p>"Yo no sabía que sí tenía eso [software no-gaming]. ShareX yo la conocí fue a través de Steam, una vez que estaba chismoseando"</p>
                     <div class="testimonial-author">Andrés C.</div>
                     <div class="testimonial-role">Desarrollador Full-Stack • Usuario Steam 5+ años</div>
                 </div>
@@ -1036,7 +1052,7 @@
                     <div class="testimonial-role">Ingeniero de Software • Gamer activo</div>
                 </div>
                 <div class="testimonial">
-                    <p>"Sí la he escuchado [Steam], pero que la use no la verdad. No sabía que tenía software profesional"</p>
+                    <p>"Sí la he escuchado [Steam], No sabía que tenía software profesional"</p>
                     <div class="testimonial-author">Felipe M.</div>
                     <div class="testimonial-role">Estudiante Ingeniería • Desarrollador IoT</div>
                 </div>
@@ -1102,17 +1118,31 @@
             <h2>Descubre herramientas profesionales en Steam</h2>
             <p><strong>Únete a la beta de Steam Creator Tools</strong><br>
             Sé de los primeros en acceder a las categorías profesionales organizadas y descubre software que no sabías que existía en Steam</p>
+ 
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Acceso anticipado a Professional Tools</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Navegación optimizada por categorías</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Descubrimiento curado de herramientas</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Comunidad de desarrolladores y designers</span>
+                </div>
+            </div>
             
             <button class="cta-primary" style="font-size: 1.4rem; padding: 20px 50px;" onclick="openModal('final_cta')">
                 <i class="fa-brands fa-steam"></i>
                 Acceder a Beta de Categorías
             </button>
-            
-            <div style="margin-top: 2rem; opacity: 0.8;">
-                <p>✅ Acceso anticipado a Professional Tools</p>
-                <p>✅ Navegación optimizada por categorías</p>
-                <p>✅ Descubrimiento curado de herramientas</p>
-            </div>
+
         </div>
     </section>
 
