@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Store - Professional Tools</title>
+    <style>
+        body {
+            font-family: 'Motiva Sans', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #c7d5e0;
+            overflow-x: hidden;
+        }
+        .steam-header {
+            background: #171a21;
+            padding: 10px 0;
+            border-bottom: 1px solid #3d4450;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .steam-logo {
+            color: #66c0f4;
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 30px;
+            cursor: pointer;
+        }
+        .nav-main {
+            display: flex;
+            gap: 25px;
+        }
+        .nav-main a {
+            color: #b8b6b4;
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        .nav-main a:hover, .nav-main a.active {
+            color: #ffffff;
+        }
+        .nav-main a.active {
+            background: #4c6b22;
+            padding: 8px 12px;
+            border-radius: 3px;
+        }
+        .store-nav {
+            background: #2a475e;
+            padding: 0;
+            border-bottom: 1px solid #1e2328;
+        }
+        .store-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .store-tabs {
+            display: flex;
+            flex: 1;
+        }
+        .store-tab {
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            color: #c7d5e0;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        .store-tab:hover {
+            background: #1e2328;
+            color: #ffffff;
+        }
+        .store-tab.active {
+            background: #ff6b35;
+            color: #ffffff;
+            border-bottom-color: #ff6b35;
+        }
+        .search-container {
+            margin-left: auto;
+        }
+        .search-bar {
+            padding: 8px 15px;
+            background: #316282;
+            border: 1px solid #4c6b22;
+            border-radius: 3px;
+            color: #ffffff;
+            width: 250px;
+            font-size: 13px;
+        }
+        .search-bar::placeholder {
+            color: #8f98a0;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .breadcrumb {
+            color: #8f98a0;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #66c0f4;
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .page-title {
+            color: #ffffff;
+            font-size: 28px;
+            margin: 0;
+        }
+        .category-filters {
+            background: #1e2328;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .filter-label {
+            color: #66c0f4;
+            font-weight: bold;
+            width: 120px;
+            font-size: 13px;
+        }
+        .filter-button {
+            background: #2a475e;
+            color: #c7d5e0;
+            border: 1px solid #3d4450;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        .filter-button:hover {
+            background: #316282;
+            color: #ffffff;
+        }
+        .filter-button.active {
+            background: #ff6b35;
+            color: #ffffff;
+            border-color: #ff6b35;
+        }
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .results-count {
+            color: #8f98a0;
+            font-size: 14px;
+        }
+        .sort-dropdown {
+            background: #2a475e;
+            color: #c7d5e0;
+            border: 1px solid #3d4450;
+            padding: 8px 12px;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background: #1e2328;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border-color: #ff6b35;
+        }
+        .product-image {
+            width: 100%;
+            height: 140px;
+            background: linear-gradient(45deg, #2a475e, #3d4450);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #ff6b35;
+        }
+        .product-info {
+            padding: 15px;
+        }
+        .product-title {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+        }
+        .product-category {
+            color: #ff6b35;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .product-description {
+            color: #8f98a0;
+            font-size: 13px;
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+        }
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .stars {
+            color: #ffa500;
+            font-size: 14px;
+        }
+        .rating-text {
+            color: #8f98a0;
+            font-size: 12px;
+        }
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .product-price {
+            color: #beee11;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .price-original {
+            color: #8f98a0;
+            text-decoration: line-through;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+        .price-discount {
+            background: #4c6b22;
+            color: #beee11;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .free-badge {
+            background: #4c6b22;
+            color: #beee11;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .featured-section {
+            background: #1e2328;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #ff6b35;
+        }
+        .featured-title {
+            color: #ff6b35;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 15px 0;
+        }
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="steam-header">
+        <div class="header-content">
+            <div class="steam-logo" onclick="goToHome()">🎮 STEAM</div>
+            <nav class="nav-main">
+                <a href="#" class="active">STORE</a>
+                <a href="#">LIBRARY</a>
+                <a href="#">COMMUNITY</a>
+                <a href="#">USER</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="store-nav">
+        <div class="store-nav-content">
+            <div class="store-tabs">
+                <button class="store-tab" onclick="goToHome()">Your Store</button>
+                <button class="store-tab">New & Noteworthy</button>
+                <button class="store-tab">Categories</button>
+                <button class="store-tab active">Professional Tools</button>
+                <button class="store-tab">Points Shop</button>
+                <button class="store-tab">News</button>
+                <button class="store-tab">Labs</button>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="search professional tools...">
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="breadcrumb">
+            <a href="#" onclick="goToHome()">All Software</a> > <a href="#">Professional Tools</a> > <strong>CAD & Engineering</strong>
+        </div>
+
+        <div class="page-header">
+            <h1 class="page-title">CAD & Engineering Tools</h1>
+        </div>
+
+        <div class="featured-section">
+            <h3 class="featured-title">🔥 Most Popular for 3D Modeling</h3>
+            <div class="featured-grid">
+                <div class="product-card" onclick="goToProduct('blender')">
+                    <div class="product-image">🎨</div>
+                    <div class="product-info">
+                        <div class="product-category">3D Modeling</div>
+                        <h4 class="product-title">Blender</h4>
+                        <p class="product-description">Professional 3D modeling, animation, and rendering suite</p>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">Very Positive (15,431)</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="free-badge">FREE</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" onclick="goToProduct('maya')">
+                    <div class="product-image">🏗️</div>
+                    <div class="product-info">
+                        <div class="product-category">3D Animation</div>
+                        <h4 class="product-title">Autodesk Maya</h4>
+                        <p class="product-description">Industry-standard 3D animation and modeling software</p>
+                        <div class="product-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">Mostly Positive (2,847)</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">$185.00/month</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-filters">
+            <div class="filter-row">
+                <div class="filter-label">Category:</div>
+                <button class="filter-button active">All CAD Tools</button>
+                <button class="filter-button">3D Modeling</button>
+                <button class="filter-button">CAD Design</button>
+                <button class="filter-button">Engineering</button>
+                <button class="filter-button">Architecture</button>
+            </div>
+            <div class="filter-row">
+                <div class="filter-label">Price:</div>
+                <button class="filter-button">Free</button>
+                <button class="filter-button">Under $50</button>
+                <button class="filter-button">$50 - $200</button>
+                <button class="filter-button">Over $200</button>
+            </div>
+            <div class="filter-row">
+                <div class="filter-label">Features:</div>
+                <button class="filter-button">Cloud Sync</button>
+                <button class="filter-button">Collaboration</button>
+                <button class="filter-button">Mobile App</button>
+                <button class="filter-button">Plugin Support</button>
+            </div>
+        </div>
+
+        <div class="results-header">
+            <div class="results-count">Showing 1-12 of 47 results</div>
+            <select class="sort-dropdown">
+                <option>Sort by: Relevance</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>User Rating</option>
+                <option>Release Date</option>
+                <option>Name A-Z</option>
+            </select>
+        </div>
+
+        <div class="products-grid">
+            <div class="product-card" onclick="goToProduct('blender')">
+                <div class="product-image">🎨</div>
+                <div class="product-info">
+                    <div class="product-category">3D Modeling</div>
+                    <h4 class="product-title">Blender</h4>
+                    <p class="product-description">Professional 3D modeling, animation, rendering, and game development suite</p>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-text">Very Positive (15,431)</span>
+                    </div>
+                    <div class="product-footer">
+                        <div class="free-badge">FREE</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="goToProduct('maya')">
+                <div class="product-image">🏗️</div>
+                <div class="product-info">
+                    <div class="product-category">3D Animation</div>
+                    <h4 class="product-title">Autodesk Maya</h4>
+                    <p class="product-description">Industry-standard 3D computer animation and modeling software</p>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">Mostly Positive (2,847)</span>
+                    </div>
+                    <div class="product-footer">
+                        <div class="product-price">
+                            <span class="price-original">$205.00/month</span>
+                            <span class="price-discount">-10%</span>
+                            $185.00/month
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="goToProduct('cinema4d')">
+                <div class="product-image">🎬</div>
+                <div class="product-info">
+                    <div class="product-category">3D Graphics</div>
+                    <h4 class="product-title">Cinema 4D</h4>
+                    <p class="product-description">Professional 3D modeling, animation and motion graphics software</p>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">Positive (1,892)</span>
+                    </div>
+                    <div class="product-footer">
+                        <div class="product-price">$149.99</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="goToProduct('fusion360')">
+                <div class="product-image">⚙️</div>
+                <div class="product-info">
+                    <div class="product-category">CAD Design</div>
+                    <h4 class="product-title">Fusion 360</h4>
+                    <p class="product-description">Integrated CAD, CAM, CAE, and PCB software platform</p>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">Mostly Positive (3,124)</span>
+                    </div>
+                    <div class="product-footer">
+                        <div class="product-price">$60.00/month</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="goToProduct('inventor')">
+                <div class="product-image">🔧</div>
+                <div class="product-info">
+                    <div class="product-category">CAD Design</div>
+                    <h4 class="product-title">Autodesk Inventor</h4>
+                    <p class="product-description">Professional-grade 3D mechanical design and engineering software</p>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">Positive (1,567)</span>
+                    </div>
+                    <div class="product-footer">
+                        <div class="product-price">$290.00/month</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="goToProduct('solidworks')">
+                <div class="product-image">📐</div>
+                <div class="product-info">
+                    <div class="product-category">CAD Design</div>
+                    <h4 class="product-title">SOLIDWORKS</h4>
+                    <p class="product-description">3D CAD design software for mechanical engineering</p>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">Positive (2,451)</span>
+                    </div>
+                    <div class="product-footer">
+                        <div class="product-price">$3,995.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goToHome() {
+            window.location.href = 'steam_home.html';
+        }
+
+        function goToProduct(productId) {
+            window.location.href = `steam_product.html?product=${productId}`;
+        }
+
+        // Simular filtros
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from siblings
+                const siblings = this.parentNode.querySelectorAll('.filter-button');
+                siblings.forEach(sibling => sibling.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

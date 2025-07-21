@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Store - Versión B (Professional Tools)</title>
+    <style>
+        body {
+            font-family: 'Motiva Sans', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #c7d5e0;
+            overflow-x: hidden;
+        }
+        .steam-header {
+            background: #171a21;
+            padding: 10px 0;
+            border-bottom: 1px solid #3d4450;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .steam-logo {
+            color: #66c0f4;
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 30px;
+            cursor: pointer;
+        }
+        .nav-main {
+            display: flex;
+            gap: 25px;
+        }
+        .nav-main a {
+            color: #b8b6b4;
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        .nav-main a:hover, .nav-main a.active {
+            color: #ffffff;
+        }
+        .nav-main a.active {
+            background: #4c6b22;
+            padding: 8px 12px;
+            border-radius: 3px;
+        }
+        .store-nav {
+            background: #2a475e;
+            padding: 0;
+            border-bottom: 1px solid #1e2328;
+        }
+        .store-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .store-tabs {
+            display: flex;
+            flex: 1;
+        }
+        .store-tab {
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            color: #c7d5e0;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        .store-tab:hover {
+            background: #1e2328;
+            color: #ffffff;
+        }
+        .store-tab.active {
+            background: #4c6b22;
+            color: #ffffff;
+            border-bottom-color: #beee11;
+        }
+        .store-tab.professional {
+            background: #ff6b35;
+            color: #ffffff;
+            border-radius: 3px 3px 0 0;
+        }
+        .store-tab.professional:hover {
+            background: #e55a2b;
+        }
+        .search-container {
+            margin-left: auto;
+        }
+        .search-bar {
+            padding: 8px 15px;
+            background: #316282;
+            border: 1px solid #4c6b22;
+            border-radius: 3px;
+            color: #ffffff;
+            width: 250px;
+            font-size: 13px;
+        }
+        .search-bar::placeholder {
+            color: #8f98a0;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+        }
+        .categories-dropdown,
+        .professional-dropdown {
+            position: relative;
+            z-index: 1000;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #1e2328;
+            border: 1px solid #3d4450;
+            border-radius: 3px;
+            width: 800px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .professional-dropdown .dropdown-content {
+            background: #2a1810;
+            border-color: #ff6b35;
+        }
+
+        .dropdown-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .dropdown-section h4 {
+            color: #66c0f4;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #3d4450;
+        }
+
+        .professional-dropdown .dropdown-section h4 {
+            color: #ff6b35;
+            border-bottom-color: #ff6b35;
+        }
+
+        .dropdown-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dropdown-section li {
+            padding: 6px 0;
+            color: #c7d5e0;
+            cursor: pointer;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .dropdown-section li:hover {
+            color: #66c0f4;
+        }
+
+        .professional-dropdown .dropdown-section li:hover {
+            color: #ff6b35;
+        }
+
+        .professional-category {
+            background: transparent !important;
+            border-left: none !important;
+            padding-left: 0 !important;
+        }
+
+        .professional-category:hover {
+            color: #66c0f4 !important;
+        }
+
+        .sidebar {
+            width: 240px;
+            background: #1e2328;
+            border-radius: 3px;
+            padding: 20px;
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            color: #66c0f4;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #3d4450;
+        }
+
+        .sidebar h3.professional {
+            color: #ff6b35;
+            border-bottom-color: #ff6b35;
+            margin-top: 30px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            padding: 8px 0;
+            color: #c7d5e0;
+            cursor: pointer;
+            font-size: 13px;
+            border-bottom: 1px solid #262626;
+            transition: color 0.3s;
+        }
+
+        .sidebar li:hover {
+            color: #66c0f4;
+        }
+
+        .sidebar li:last-child {
+            border-bottom: none;
+        }
+
+        .content {
+            flex: 1;
+            background: #1e2328;
+            border-radius: 3px;
+            padding: 20px;
+            margin-left: 20px;
+        }
+
+        .content h3 {
+            color: #ffffff;
+            font-size: 18px;
+            margin: 0 0 20px 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .product-card {
+            background: #2a475e;
+            border-radius: 3px;
+            padding: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-card.professional {
+            background: #2a1810;
+            border-left: 3px solid #ff6b35;
+        }
+
+        .product-card h4 {
+            color: #ffffff;
+            font-size: 16px;
+            margin: 0 0 8px 0;
+        }
+
+        .product-card p {
+            color: #8f98a0;
+            font-size: 13px;
+            margin: 0 0 10px 0;
+        }
+
+        .price {
+            color: #beee11;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .price.professional {
+            color: #ff6b35;
+        }
+
+        .professional-badge {
+            background: #ff6b35;
+            color: #ffffff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="steam-header">
+        <div class="header-content">
+            <div class="steam-logo" onclick="goToHome()">🎮 STEAM</div>
+            <nav class="nav-main">
+                <a href="#" class="active">STORE</a>
+                <a href="#">LIBRARY</a>
+                <a href="#">COMMUNITY</a>
+                <a href="#">USER</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="store-nav">
+        <div class="store-nav-content">
+            <div class="store-tabs">
+                <button class="store-tab active">Your Store</button>
+                <button class="store-tab">New & Noteworthy</button>
+                <div class="categories-dropdown">
+                    <button class="store-tab" onclick="toggleDropdown('categoriesDropdown')">Categories</button>
+                    <div id="categoriesDropdown" class="dropdown-content">
+                        <div class="dropdown-grid">
+                            <div class="dropdown-section">
+                                <h4>Special Sections</h4>
+                                <ul>
+                                    <li>Free To Play</li>
+                                    <li>Demos</li>
+                                    <li>Early Access</li>
+                                    <li>Steam Deck</li>
+                                    <li>Great on Deck</li>
+                                    <li>Controller-Friendly</li>
+                                    <li>Remote Play</li>
+                                    <li>VR Titles</li>
+                                    <li>VR Hardware</li>
+                                    <li>Soundtracks</li>
+                                </ul>
+                            </div>
+                            <div class="dropdown-section">
+                                <h4>Genres</h4>
+                                <ul>
+                                    <li>Action</li>
+                                    <li>Adventure</li>
+                                    <li>Casual</li>
+                                    <li>Indie</li>
+                                    <li>Massively Multiplayer</li>
+                                    <li>Racing</li>
+                                    <li>RPG</li>
+                                    <li>Simulation</li>
+                                    <li>Sports</li>
+                                    <li>Strategy</li>
+                                </ul>
+                            </div>
+                            <div class="dropdown-section">
+                                <h4>Themes</h4>
+                                <ul>
+                                    <li>Anime</li>
+                                    <li>Horror</li>
+                                    <li>Mystery & Detective</li>
+                                    <li>Open World</li>
+                                    <li>Sci-Fi & Cyberpunk</li>
+                                    <li>Space</li>
+                                    <li>Survival</li>
+                                    <li>Multiplayer</li>
+                                    <li>Singleplayer</li>
+                                    <li>Co-Operative</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="professional-dropdown">
+                    <button class="store-tab professional" onclick="toggleDropdown('professionalDropdown')">
+                        Professional Tools
+                    </button>
+                    <div id="professionalDropdown" class="dropdown-content">
+                        <div class="dropdown-grid">
+                            <div class="dropdown-section">
+                                <h4>🔧 Development</h4>
+                                <ul>
+                                    <li onclick="goToCategory('development')">Code Editors & IDEs</li>
+                                    <li onclick="goToCategory('development')">Version Control</li>
+                                    <li onclick="goToCategory('development')">Database Tools</li>
+                                    <li onclick="goToCategory('development')">API Development</li>
+                                    <li onclick="goToCategory('development')">Web Development</li>
+                                    <li onclick="goToCategory('development')">Mobile Development</li>
+                                    <li onclick="goToCategory('development')">Game Development</li>
+                                    <li onclick="goToCategory('development')">DevOps Tools</li>
+                                </ul>
+                            </div>
+                            <div class="dropdown-section">
+                                <h4>🎨 Creative & Design</h4>
+                                <ul>
+                                    <li onclick="goToCategory('cad')">3D Modeling & Animation</li>
+                                    <li onclick="goToCategory('design')">Graphic Design</li>
+                                    <li onclick="goToCategory('design')">UI/UX Design</li>
+                                    <li onclick="goToCategory('design')">Photo Editing</li>
+                                    <li onclick="goToCategory('design')">Vector Graphics</li>
+                                    <li onclick="goToCategory('design')">Digital Painting</li>
+                                    <li onclick="goToCategory('design')">Video Editing</li>
+                                    <li onclick="goToCategory('design')">Audio Production</li>
+                                </ul>
+                            </div>
+                            <div class="dropdown-section">
+                                <h4>📐 Engineering</h4>
+                                <ul>
+                                    <li onclick="goToCategory('cad')">CAD Software</li>
+                                    <li onclick="goToCategory('cad')">3D Engineering</li>
+                                    <li onclick="goToCategory('engineering')">Simulation Tools</li>
+                                    <li onclick="goToCategory('engineering')">Architecture</li>
+                                    <li onclick="goToCategory('engineering')">Electronics Design</li>
+                                    <li onclick="goToCategory('engineering')">Manufacturing</li>
+                                    <li onclick="goToCategory('engineering')">Project Management</li>
+                                    <li onclick="goToCategory('engineering')">Data Analysis</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="store-tab">Points Shop</button>
+                <button class="store-tab">News</button>
+                <button class="store-tab">Labs</button>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="search games, software & tools...">
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <h3>Browse Games</h3>
+            <ul>
+                <li>Action</li>
+                <li>Adventure</li>
+                <li>Strategy</li>
+                <li>RPG</li>
+                <li>Simulation</li>
+                <li>Racing</li>
+                <li>Sports</li>
+                <li>Indie</li>
+                <li>Early Access</li>
+                <li>Free to Play</li>
+            </ul>
+
+            <h3 class="professional">Professional Tools</h3>
+            <ul>
+                <li class="professional-category" onclick="goToCategory('development')">Development Tools</li>
+                <li class="professional-category" onclick="goToCategory('design')">Design Software</li>
+                <li class="professional-category" onclick="goToCategory('cad')">CAD & Engineering</li>
+                <li class="professional-category" onclick="goToCategory('audio')">Audio Production</li>
+                <li class="professional-category" onclick="goToCategory('video')">Video Editing</li>
+                <li class="professional-category" onclick="goToCategory('data')">Data Analysis</li>
+                <li class="professional-category" onclick="goToCategory('architecture')">Architecture</li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <h3>Featured & Recommended</h3>
+            <div class="product-grid">
+                <div class="product-card">
+                    <h4>Cyberpunk 2077</h4>
+                    <p>Futuristic open-world action RPG</p>
+                    <div class="price">$59.99</div>
+                </div>
+                <div class="product-card professional" onclick="goToProduct('blender')">
+                    <h4>Blender <span class="professional-badge">PRO</span></h4>
+                    <p>Professional 3D modeling, animation & rendering</p>
+                    <div class="price professional">Free</div>
+                </div>
+                <div class="product-card professional" onclick="goToProduct('maya')">
+                    <h4>Autodesk Maya <span class="professional-badge">PRO</span></h4>
+                    <p>Industry-standard 3D animation software</p>
+                    <div class="price professional">$185.00/month</div>
+                </div>
+                <div class="product-card">
+                    <h4>Counter-Strike 2</h4>
+                    <p>Tactical first-person shooter</p>
+                    <div class="price">Free to Play</div>
+                </div>
+                <div class="product-card professional" onclick="goToProduct('cinema4d')">
+                    <h4>Cinema 4D <span class="professional-badge">PRO</span></h4>
+                    <p>Professional 3D modeling & motion graphics</p>
+                    <div class="price professional">$149.99</div>
+                </div>
+                <div class="product-card">
+                    <h4>Elden Ring</h4>
+                    <p>Action RPG from FromSoftware</p>
+                    <div class="price">$49.99</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown(dropdownId) {
+            // Close all other dropdowns first
+            const allDropdowns = document.querySelectorAll('.dropdown-content');
+            allDropdowns.forEach(dropdown => {
+                if (dropdown.id !== dropdownId) {
+                    dropdown.classList.remove('show');
+                }
+            });
+
+            // Toggle the selected dropdown
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.classList.toggle('show');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('.categories-dropdown') && !event.target.closest('.professional-dropdown')) {
+                const allDropdowns = document.querySelectorAll('.dropdown-content');
+                allDropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('show');
+                });
+            }
+        });
+
+        function goToHome() {
+            alert('🏠 Navegando a la página principal de Steam');
+        }
+
+        function goToCategory(category) {
+            window.location.href = `steam_category.html?category=${category}`;
+        }
+
+        function goToProduct(product) {
+            window.location.href = `steam_product.html?product=${product}`;
+        }
+
+        // Add click handlers for professional software
+        document.querySelectorAll('.product-card.professional').forEach(card => {
+            card.addEventListener('click', function () {
+                const title = card.querySelector('h4').textContent;
+                const productName = title.toLowerCase().replace(' ', '');
+                window.location.href = `steam_product.html?product=${productName}`;
+            });
+        });
+    </script>
+</body>
+
+</html>

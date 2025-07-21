@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Cart - Steam</title>
+    <style>
+        body {
+            font-family: 'Motiva Sans', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #c7d5e0;
+            overflow-x: hidden;
+        }
+        .steam-header {
+            background: #171a21;
+            padding: 10px 0;
+            border-bottom: 1px solid #3d4450;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .steam-logo {
+            color: #66c0f4;
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 30px;
+            cursor: pointer;
+        }
+        .nav-main {
+            display: flex;
+            gap: 25px;
+        }
+        .nav-main a {
+            color: #b8b6b4;
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        .nav-main a:hover, .nav-main a.active {
+            color: #ffffff;
+        }
+        .nav-main a.active {
+            background: #4c6b22;
+            padding: 8px 12px;
+            border-radius: 3px;
+        }
+        .store-nav {
+            background: #2a475e;
+            padding: 0;
+            border-bottom: 1px solid #1e2328;
+        }
+        .store-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .store-tabs {
+            display: flex;
+            flex: 1;
+        }
+        .store-tab {
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            color: #c7d5e0;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        .store-tab:hover {
+            background: #1e2328;
+            color: #ffffff;
+        }
+        .store-tab.active {
+            background: #4c6b22;
+            color: #ffffff;
+            border-bottom-color: #beee11;
+        }
+        .search-container {
+            margin-left: auto;
+        }
+        .search-bar {
+            padding: 8px 15px;
+            background: #316282;
+            border: 1px solid #4c6b22;
+            border-radius: 3px;
+            color: #ffffff;
+            width: 250px;
+            font-size: 13px;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .breadcrumb {
+            color: #8f98a0;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #66c0f4;
+            text-decoration: none;
+        }
+        .page-title {
+            color: #ffffff;
+            font-size: 28px;
+            margin: 0 0 30px 0;
+        }
+        .cart-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        .cart-items {
+            background: #1e2328;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #3d4450;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .item-image {
+            width: 120px;
+            height: 90px;
+            background: linear-gradient(45deg, #2a475e, #3d4450);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #ff6b35;
+            border: 2px solid #ff6b35;
+        }
+        .item-details {
+            flex: 1;
+        }
+        .item-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+        }
+        .item-category {
+            color: #ff6b35;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .item-description {
+            color: #8f98a0;
+            font-size: 13px;
+            margin: 0 0 10px 0;
+        }
+        .professional-badge {
+            background: #ff6b35;
+            color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .item-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+        .item-price {
+            color: #beee11;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .free-badge {
+            background: #4c6b22;
+            color: #beee11;
+            padding: 6px 12px;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .remove-btn {
+            background: transparent;
+            color: #8f98a0;
+            border: 1px solid #3d4450;
+            padding: 6px 12px;
+            border-radius: 3px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .remove-btn:hover {
+            background: #ff4444;
+            color: #ffffff;
+            border-color: #ff4444;
+        }
+        .cart-summary {
+            background: #1e2328;
+            border-radius: 5px;
+            padding: 20px;
+            height: fit-content;
+        }
+        .summary-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 20px 0;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #3d4450;
+        }
+        .summary-row:last-child {
+            border-bottom: none;
+            padding-top: 20px;
+            margin-top: 10px;
+            border-top: 2px solid #3d4450;
+        }
+        .summary-label {
+            color: #c7d5e0;
+            font-size: 14px;
+        }
+        .summary-value {
+            color: #beee11;
+            font-weight: bold;
+        }
+        .total-value {
+            color: #beee11;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .purchase-btn {
+            width: 100%;
+            background: #4c6b22;
+            color: #beee11;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+        .purchase-btn:hover {
+            background: #5a7a28;
+        }
+        .continue-shopping-btn {
+            width: 100%;
+            background: transparent;
+            color: #66c0f4;
+            border: 1px solid #66c0f4;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        .continue-shopping-btn:hover {
+            background: #66c0f4;
+            color: #1e2328;
+        }
+        .professional-benefits {
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .benefits-title {
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .benefits-list {
+            color: #ffffff;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .benefits-list li {
+            margin-bottom: 5px;
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            color: #8f98a0;
+        }
+        .empty-cart-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        .recommendations {
+            background: #1e2328;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .recommendations-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 20px 0;
+        }
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .recommendation-card {
+            background: #2a475e;
+            border-radius: 5px;
+            padding: 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .recommendation-card:hover {
+            transform: translateY(-2px);
+        }
+        .rec-title {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+        }
+        .rec-price {
+            color: #beee11;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="steam-header">
+        <div class="header-content">
+            <div class="steam-logo" onclick="goToHome()">🎮 STEAM</div>
+            <nav class="nav-main">
+                <a href="#" class="active">STORE</a>
+                <a href="#">LIBRARY</a>
+                <a href="#">COMMUNITY</a>
+                <a href="#">USER</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="store-nav">
+        <div class="store-nav-content">
+            <div class="store-tabs">
+                <button class="store-tab active">Your Store</button>
+                <button class="store-tab">New & Noteworthy</button>
+                <button class="store-tab">Categories</button>
+                <button class="store-tab">Professional Tools</button>
+                <button class="store-tab">Points Shop</button>
+                <button class="store-tab">News</button>
+                <button class="store-tab">Labs</button>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="search games, software & tools...">
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="breadcrumb">
+            <a href="#" onclick="goToHome()">Home</a> > <strong>Your Shopping Cart</strong>
+        </div>
+
+        <h1 class="page-title">Your Shopping Cart</h1>
+
+        <div class="cart-container">
+            <div class="cart-items">
+                <div class="cart-item">
+                    <div class="item-image">🎨</div>
+                    <div class="item-details">
+                        <div class="item-category">Professional 3D Modeling</div>
+                        <h3 class="item-title">Blender</h3>
+                        <p class="item-description">Professional 3D modeling, animation, and rendering suite</p>
+                        <span class="professional-badge">PROFESSIONAL TOOLS</span>
+                    </div>
+                    <div class="item-actions">
+                        <div class="free-badge">FREE</div>
+                        <button class="remove-btn" onclick="removeItem('blender')">Remove</button>
+                    </div>
+                </div>
+
+                <div class="cart-item">
+                    <div class="item-image">🔧</div>
+                    <div class="item-details">
+                        <div class="item-category">Development Tools</div>
+                        <h3 class="item-title">Visual Studio Code</h3>
+                        <p class="item-description">Powerful source code editor with IntelliSense and debugging</p>
+                        <span class="professional-badge">PROFESSIONAL TOOLS</span>
+                    </div>
+                    <div class="item-actions">
+                        <div class="free-badge">FREE</div>
+                        <button class="remove-btn" onclick="removeItem('vscode')">Remove</button>
+                    </div>
+                </div>
+
+                <div class="cart-item">
+                    <div class="item-image">🎬</div>
+                    <div class="item-details">
+                        <div class="item-category">CAD & Engineering</div>
+                        <h3 class="item-title">Cinema 4D</h3>
+                        <p class="item-description">Professional 3D modeling, animation and motion graphics</p>
+                        <span class="professional-badge">PROFESSIONAL TOOLS</span>
+                    </div>
+                    <div class="item-actions">
+                        <div class="item-price">$149.99</div>
+                        <button class="remove-btn" onclick="removeItem('cinema4d')">Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-summary">
+                <h3 class="summary-title">Purchase Summary</h3>
+                
+                <div class="professional-benefits">
+                    <div class="benefits-title">🚀 Professional Tools Benefits:</div>
+                    <ul class="benefits-list">
+                        <li>Steam Cloud sync across all devices</li>
+                        <li>Workshop integration for assets</li>
+                        <li>Professional community access</li>
+                        <li>Priority support</li>
+                    </ul>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-label">Subtotal (3 items):</span>
+                    <span class="summary-value">$149.99</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span class="summary-label">Regional discount:</span>
+                    <span class="summary-value">-$15.00</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span class="summary-label">Free items value:</span>
+                    <span class="summary-value">$0.00</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span class="summary-label">Estimated total:</span>
+                    <span class="total-value">$134.99</span>
+                </div>
+
+                <button class="purchase-btn" onclick="proceedToPayment()">Continue to Payment</button>
+                <button class="continue-shopping-btn" onclick="continueShopping()">Continue Shopping</button>
+
+                <div style="margin-top: 20px; padding: 15px; background: #2a475e; border-radius: 5px;">
+                    <h4 style="color: #66c0f4; margin: 0 0 10px 0; font-size: 14px;">💡 Digital Product License</h4>
+                    <p style="color: #c7d5e0; font-size: 12px; margin: 0; line-height: 1.4;">
+                        A purchase of a digital product grants a license for the product on Steam. For full terms and conditions, please see the <a href="#" style="color: #66c0f4;">Steam Subscriber Agreement</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="recommendations">
+            <h3 class="recommendations-title">Customers who bought professional tools also bought:</h3>
+            <div class="recommendation-grid">
+                <div class="recommendation-card" onclick="addRecommendation('figma')">
+                    <div class="rec-title">🎨 Figma Desktop</div>
+                    <div style="color: #8f98a0; font-size: 12px; margin: 5px 0;">UI/UX Design</div>
+                    <div class="rec-price">$12.00/month</div>
+                </div>
+                
+                <div class="recommendation-card" onclick="addRecommendation('unity')">
+                    <div class="rec-title">🎮 Unity Pro</div>
+                    <div style="color: #8f98a0; font-size: 12px; margin: 5px 0;">Game Development</div>
+                    <div class="rec-price">$185.00/month</div>
+                </div>
+                
+                <div class="recommendation-card" onclick="addRecommendation('photoshop')">
+                    <div class="rec-title">📸 Adobe Photoshop</div>
+                    <div style="color: #8f98a0; font-size: 12px; margin: 5px 0;">Image Editing</div>
+                    <div class="rec-price">$22.99/month</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goToHome() {
+            window.location.href = 'steam_home.html';
+        }
+
+        function continueShopping() {
+            window.location.href = 'steam_category.html';
+        }
+
+        function proceedToPayment() {
+            alert('🎉 ¡FLUJO COMPLETADO EXITOSAMENTE!\n\n✅ Customer Journey Validado:\n• Descubrimiento de categorías profesionales\n• Navegación intuitiva\n• Evaluación de productos\n• Adición al carrito\n• Proceso de pago\n\n🎯 Tu investigación sobre Steam Creator Tools ha sido validada:\n• Los usuarios PUEDEN encontrar herramientas profesionales\n• La integración gaming + professional funciona\n• El valor agregado (cloud sync, comunidad) es claro\n\n💡 Siguiente paso: Implementar el experimento de willingness to pay');
+        }
+
+        function removeItem(itemId) {
+            alert(`🗑️ ${itemId} removido del carrito`);
+        }
+
+        function addRecommendation(itemId) {
+            alert(`➕ ${itemId} agregado al carrito como recomendación`);
+        }
+    </script>
+</body>
+</html>

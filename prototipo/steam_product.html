@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender en Steam - Professional 3D Modeling Software</title>
+    <style>
+        body {
+            font-family: 'Motiva Sans', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #c7d5e0;
+            overflow-x: hidden;
+        }
+        .steam-header {
+            background: #171a21;
+            padding: 10px 0;
+            border-bottom: 1px solid #3d4450;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .steam-logo {
+            color: #66c0f4;
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 30px;
+            cursor: pointer;
+        }
+        .nav-main {
+            display: flex;
+            gap: 25px;
+        }
+        .nav-main a {
+            color: #b8b6b4;
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        .nav-main a:hover, .nav-main a.active {
+            color: #ffffff;
+        }
+        .nav-main a.active {
+            background: #4c6b22;
+            padding: 8px 12px;
+            border-radius: 3px;
+        }
+        .store-nav {
+            background: #2a475e;
+            padding: 0;
+            border-bottom: 1px solid #1e2328;
+        }
+        .store-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .store-tabs {
+            display: flex;
+            flex: 1;
+        }
+        .store-tab {
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            color: #c7d5e0;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        .store-tab:hover {
+            background: #1e2328;
+            color: #ffffff;
+        }
+        .store-tab.active {
+            background: #ff6b35;
+            color: #ffffff;
+            border-bottom-color: #ff6b35;
+        }
+        .search-container {
+            margin-left: auto;
+        }
+        .search-bar {
+            padding: 8px 15px;
+            background: #316282;
+            border: 1px solid #4c6b22;
+            border-radius: 3px;
+            color: #ffffff;
+            width: 250px;
+            font-size: 13px;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .breadcrumb {
+            color: #8f98a0;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #66c0f4;
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .product-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .product-media {
+            flex: 2;
+        }
+        .product-main-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #2a475e, #3d4450);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: #ff6b35;
+            margin-bottom: 15px;
+            border: 2px solid #ff6b35;
+        }
+        .product-thumbnails {
+            display: flex;
+            gap: 10px;
+        }
+        .thumbnail {
+            width: 80px;
+            height: 60px;
+            background: #2a475e;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        .thumbnail:hover, .thumbnail.active {
+            border-color: #ff6b35;
+        }
+        .product-details {
+            flex: 1;
+            background: #1e2328;
+            border-radius: 5px;
+            padding: 20px;
+            height: fit-content;
+        }
+        .product-title {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+        .product-category {
+            color: #ff6b35;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .stars {
+            color: #ffa500;
+            font-size: 16px;
+        }
+        .rating-text {
+            color: #8f98a0;
+            font-size: 14px;
+        }
+        .product-description {
+            color: #c7d5e0;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .professional-badge {
+            background: #ff6b35;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .price-section {
+            background: #2a475e;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .price-large {
+            color: #beee11;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+        .add-to-cart-btn {
+            width: 100%;
+            background: #4c6b22;
+            color: #beee11;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 15px;
+        }
+        .add-to-cart-btn:hover {
+            background: #5a7a28;
+        }
+        .wishlist-btn {
+            width: 100%;
+            background: transparent;
+            color: #66c0f4;
+            border: 1px solid #66c0f4;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        .wishlist-btn:hover {
+            background: #66c0f4;
+            color: #1e2328;
+        }
+        .product-info-tabs {
+            background: #1e2328;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        .tab-buttons {
+            display: flex;
+            background: #2a475e;
+        }
+        .tab-button {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #c7d5e0;
+            padding: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .tab-button.active {
+            background: #ff6b35;
+            color: #ffffff;
+        }
+        .tab-content {
+            padding: 20px;
+            color: #c7d5e0;
+            line-height: 1.6;
+        }
+        .features-list {
+            list-style: none;
+            padding: 0;
+        }
+        .features-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #3d4450;
+        }
+        .features-list li:before {
+            content: "✓";
+            color: #4c6b22;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .system-requirements {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .req-section {
+            background: #2a475e;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .req-title {
+            color: #ff6b35;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .reviews-section {
+            background: #1e2328;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .review-card {
+            background: #2a475e;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .reviewer-name {
+            color: #66c0f4;
+            font-weight: bold;
+        }
+        .review-date {
+            color: #8f98a0;
+            font-size: 12px;
+        }
+        .cloud-sync-highlight {
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            --border-left: 4px solid #ffffff;
+        }
+        .cloud-sync-title {
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .cloud-sync-text {
+            color: #ffffff;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="steam-header">
+        <div class="header-content">
+            <div class="steam-logo" onclick="goToHome()">🎮 STEAM</div>
+            <nav class="nav-main">
+                <a href="#" class="active">STORE</a>
+                <a href="#">LIBRARY</a>
+                <a href="#">COMMUNITY</a>
+                <a href="#">USER</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="store-nav">
+        <div class="store-nav-content">
+            <div class="store-tabs">
+                <button class="store-tab" onclick="goToHome()">Your Store</button>
+                <button class="store-tab">New & Noteworthy</button>
+                <button class="store-tab">Categories</button>
+                <button class="store-tab active">Professional Tools</button>
+                <button class="store-tab">Points Shop</button>
+                <button class="store-tab">News</button>
+                <button class="store-tab">Labs</button>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="search professional tools...">
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="breadcrumb">
+            <a href="#" onclick="goToHome()">All Software</a> > <a href="#" onclick="goToCategory()">Professional Tools</a> > <a href="#" onclick="goToCategory()">CAD & Engineering</a> > <strong>Blender</strong>
+        </div>
+
+        <div class="product-header">
+            <div class="product-media">
+                <div class="product-main-image">🎨</div>
+                <div class="product-thumbnails">
+                    <div class="thumbnail active">🎨</div>
+                    <div class="thumbnail">🎬</div>
+                    <div class="thumbnail">🏗️</div>
+                    <div class="thumbnail">⚙️</div>
+                </div>
+            </div>
+
+            <div class="product-details">
+                <div class="product-category">Professional 3D Modeling Software</div>
+                <h1 class="product-title">Blender</h1>
+                <div class="professional-badge">PROFESSIONAL TOOLS</div>
+                
+                <div class="product-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-text">Very Positive (15,431 reviews)</span>
+                </div>
+
+                <p class="product-description">
+                    Blender is the free and open source 3D creation suite. It supports the entirety of the 3D pipeline—modeling, rigging, animation, simulation, rendering, compositing and motion tracking, video editing and 2D animation pipeline.
+                </p>
+
+                <div class="cloud-sync-highlight">
+                    <div class="cloud-sync-title">🔄 Steam Cloud Integration</div>
+                    <div class="cloud-sync-text">Sync your projects across devices automatically. Start on desktop, continue on laptop!</div>
+                </div>
+
+                <div class="price-section">
+                    <button class="add-to-cart-btn" onclick="addToCart()">📥 Add to Library</button>
+                    <button class="wishlist-btn">❤️ Add to Wishlist</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-info-tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="showTab('overview')">Overview</button>
+                <button class="tab-button" onclick="showTab('features')">Features</button>
+                <button class="tab-button" onclick="showTab('requirements')">System Requirements</button>
+            </div>
+
+            <div id="overview" class="tab-content">
+                <h3>About Blender</h3>
+                <p>Blender is a powerful, professional-grade 3D creation suite that's completely free. Perfect for game development, architectural visualization, product design, and creative projects.</p>
+                
+                <h4>What makes it special:</h4>
+                <ul class="features-list">
+                    <li>Complete 3D pipeline in one application</li>
+                    <li>Advanced sculpting and modeling tools</li>
+                    <li>Powerful animation and rigging system</li>
+                    <li>Professional rendering engines (Cycles & Eevee)</li>
+                    <li>Active community and extensive learning resources</li>
+                    <li>Regular updates and new features</li>
+                </ul>
+
+                <h4>Perfect for:</h4>
+                <p>Game developers, architects, product designers, VFX artists, animators, and anyone looking to create stunning 3D content.</p>
+            </div>
+
+            <div id="features" class="tab-content" style="display: none;">
+                <h3>Professional Features</h3>
+                <ul class="features-list">
+                    <li>Advanced Modeling: Mesh, curve, surface, metaball, text and volume objects</li>
+                    <li>Sculpting: Dynamic topology, multiresolution, virtual reality support</li>
+                    <li>Animation: Character animation, physics simulation, motion tracking</li>
+                    <li>Rendering: Cycles ray-tracing, Eevee real-time, Freestyle NPR</li>
+                    <li>Compositing: Built-in compositor with nodes</li>
+                    <li>Video Editing: Cut, splice, sync, scrub, warp and color grade</li>
+                    <li>Scripting: Python API for automation and customization</li>
+                    <li>Import/Export: Industry-standard formats (FBX, OBJ, Collada, USD)</li>
+                </ul>
+
+                <h4>Steam Exclusive Features:</h4>
+                <ul class="features-list">
+                    <li>Steam Cloud sync for project files and preferences</li>
+                    <li>Workshop integration for sharing models and materials</li>
+                    <li>Achievement system for learning milestones</li>
+                    <li>Built-in tutorials and learning path</li>
+                </ul>
+            </div>
+
+            <div id="requirements" class="tab-content" style="display: none;">
+                <h3>System Requirements</h3>
+                <div class="system-requirements">
+                    <div class="req-section">
+                        <div class="req-title">Minimum:</div>
+                        <ul>
+                            <li><strong>OS:</strong> Windows 8.1, macOS 10.13, Linux</li>
+                            <li><strong>Processor:</strong> 64-bit dual core 2Ghz CPU with SSE2</li>
+                            <li><strong>Memory:</strong> 4 GB RAM</li>
+                            <li><strong>Graphics:</strong> 2GB RAM, OpenGL 3.3</li>
+                            <li><strong>Storage:</strong> 500 MB available space</li>
+                        </ul>
+                    </div>
+                    <div class="req-section">
+                        <div class="req-title">Recommended:</div>
+                        <ul>
+                            <li><strong>OS:</strong> Windows 10, macOS 10.15, Linux</li>
+                            <li><strong>Processor:</strong> 8 core CPU</li>
+                            <li><strong>Memory:</strong> 16 GB RAM</li>
+                            <li><strong>Graphics:</strong> 8GB RAM dedicated GPU</li>
+                            <li><strong>Storage:</strong> 2 GB available space</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <h3>Customer Reviews</h3>
+                <div class="product-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-text">Very Positive (15,431 reviews)</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Diego_Dev_Colombia</span>
+                    <span class="review-date">December 15, 2024</span>
+                </div>
+                <div class="product-rating">
+                    <span class="stars">★★★★★</span>
+                </div>
+                <p>"Perfect for my university projects! The Steam Cloud sync is a game changer - I can work on my 3D models at university and continue at home without any setup. Finally found all my creative tools in one place."</p>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Andrea_Architect</span>
+                    <span class="review-date">December 10, 2024</span>
+                </div>
+                <div class="product-rating">
+                    <span class="stars">★★★★★</span>
+                </div>
+                <p>"Increíble que sea gratis y ahora esté en Steam. La integración con Steam Workshop para compartir materiales es brillante. Mis estudiantes pueden acceder fácilmente a los recursos que comparto."</p>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">TechStartupCTO</span>
+                    <span class="review-date">December 8, 2024</span>
+                </div>
+                <div class="product-rating">
+                    <span class="stars">★★★★☆</span>
+                </div>
+                <p>"Great for prototyping our product designs. The fact that it's integrated with our gaming platform makes it easy for our team to access. Cloud sync works perfectly across our office devices."</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goToHome() {
+            window.location.href = 'steam_home.html';
+        }
+
+        function goToCategory() {
+            window.location.href = 'steam_category.html';
+        }
+
+        function addToCart() {
+            window.location.href = 'steam_cart.html';
+        }
+
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab and activate button
+            document.getElementById(tabName).style.display = 'block';
+            event.target.classList.add('active');
+        }
+
+        // Simulate thumbnail selection
+        document.querySelectorAll('.thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
